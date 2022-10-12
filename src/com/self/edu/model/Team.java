@@ -1,4 +1,4 @@
-package com.self.edu;
+package com.self.edu.model;
 
 public class Team {
 

@@ -3,6 +3,7 @@ package com.self.edu;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.self.edu.model.FootballMatch;
 import com.self.edu.model.Match;
 import com.self.edu.model.Team;
 
@@ -13,7 +14,7 @@ public class ScoreBoardTest {
 		ScoreBoard sb = new ScoreBoard();
 		Assert.assertNotNull(sb.getMatches());
 	}
-	
+
 	@Test
 	public void testTeamInitScore() {
 		Team team = new Team();
@@ -46,12 +47,17 @@ public class ScoreBoardTest {
 		Match match = buildNewMatch();
 		Assert.assertEquals(match.getHomeTeam().getScore(), match.getAwayTeam().getScore());
 	}
+	
+	@Test
+	public void testIsGameFinished() {
+		Match match = buildNewMatch();
+		match.setFinished(true);
+		Assert.assertTrue(match.isFinished());
+	}
 
-	
-	
 	//// Helper methods
 	private Match buildNewMatch() {
-		return new Match(new Team("Team A", 0), new Team("Team B", 0));
+		return new FootballMatch(1, new Team("Team A", 0), new Team("Team B", 0));
 	}
 
 }

@@ -2,20 +2,24 @@ package com.self.edu.service;
 
 import com.self.edu.model.Match;
 
-public interface IScoreBoard {
+public interface IScoreBoard<M extends Match> {
 
 	/**
 	 * Initializes the score to 0 for every new match
 	 */
 	void initScore();
-	
+
 	/**
 	 * Updates scores of a match
 	 */
-	void updateScore(Match match);
-	
+	void updateScore(int matchId, int homeScore, int awayScore) throws Exception;
+
 	/**
-	 * Calculates the final score of a match 
+	 * Finish the game and remove the match from the scoreboard
 	 */
-	void calculateFinalScore(Match match);
+	void finishMatch(M match) throws Exception;
+
+	void printMatchDetails(M match);
+
+	void summarizeMatch();
 }

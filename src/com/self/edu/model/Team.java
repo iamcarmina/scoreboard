@@ -4,16 +4,21 @@ public class Team {
 
 	private int score;
 	private String name;
-	
+
 	public Team() {
+		this.name = "";
 		this.score = 0;
 	}
-	
+
+	public Team(String name) {
+		this.name = name;
+	}
+
 	public Team(String name, int score) {
 		this.name = name;
 		this.score = score;
 	}
-	
+
 	public int getScore() {
 		return score;
 	}
@@ -38,8 +43,5 @@ public class Team {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	
 
-	
 }

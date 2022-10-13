@@ -9,7 +9,7 @@ A Match can be of different sports such as Football, Basketball, Baseball, Tenni
 
 IScoreBoard is a generic interface with Match type parameter. This will give the implementing class a freedom to implement the provided interface. As for the case of this coding exercise, I can only think of adding a new match, update the score of the match, finish a match and summarize the match. 
 
-Since there is no database or backend storage for the records of matches, an ArrayList is used. ScoreBoard is initialized with an empty collection of matches and a matchId is assigned to be able to update the scores of each match based on the ID. Additional information is added such as start and end datetime of the match as well as a boolean flag for match that has ended.
+Since there is no database or backend storage for the records of matches, an ArrayList is used. ScoreBoard is initialized with an empty collection of matches and a matchId is assigned to be able to update the scores of each match based on the ID. Additional information is added such as start and end datetime of the match as well as a boolean flag for match that has ended. This flag is added as the record is not entirely removed in the collection and the assumption that the summary should still be able to see the match/game that has already ended.
 
 App.java is where all the interface methods are put into use, following the coding exercise checklist.
 

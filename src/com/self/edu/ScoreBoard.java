@@ -1,6 +1,8 @@
 package com.self.edu;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +17,8 @@ import com.self.edu.service.IScoreBoard;
  */
 public class ScoreBoard implements IScoreBoard<FootballMatch> {
 
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	private List<FootballMatch> matchList;
 
 	public ScoreBoard() {
@@ -26,17 +30,7 @@ public class ScoreBoard implements IScoreBoard<FootballMatch> {
 	}
 
 	public List<FootballMatch> getMatches() {
-		// TODO Auto-generated method stub
 		return this.matchList;
-	}
-
-	@Override
-	public void initScore() {
-		if (this.matchList != null && this.matchList.size() > 0) {
-			// TODO Auto-generated method stub
-			this.matchList.stream().map(m -> m.initTeamScore()).forEach(e -> printMatchDetails(e));
-		}
-
 	}
 
 	@Override
@@ -57,18 +51,55 @@ public class ScoreBoard implements IScoreBoard<FootballMatch> {
 	}
 
 	@Override
-	public void finishMatch(FootballMatch match) throws Exception {
+	public List<FootballMatch> finishMatch(FootballMatch match) throws Exception {
 
 		if (match == null)
 			throw new Exception("No match to finish");
 
+		this.matchList.stream().forEach(m -> {
+			if (m.getMatchId() == match.getMatchId()) {
+				m.setFinished(true);
+				m.setGameEndDate(new Date());
+			}
+		});
+
 		List<FootballMatch> newMatchList = this.matchList.stream().filter(m -> m.getMatchId() != match.getMatchId())
 				.collect(Collectors.toList());
-		
-		newMatchList.stream().forEach(e->printMatchDetails(e));
+
+		return newMatchList;
+
 	}
 
 	@Override
+	public void summarizeMatch() {
+		// TODO Auto-generated method stub
+		this.matchList.sort((o1, o2) -> {
+			int o1Ts = o1.getHomeTeam().getScore() + o1.getAwayTeam().getScore();
+			int o2Ts = o2.getHomeTeam().getScore() + o2.getAwayTeam().getScore();
+			if (o1Ts < o2Ts)
+				return 1;
+			if (o1Ts > o2Ts)
+				return -1;
+			if (o1Ts == o2Ts) {
+				return o1.getGameStartDate().compareTo(o2.getGameStartDate());
+			}
+			return 0;
+		});
+	}
+
+	@Override
+	public void addMatch(FootballMatch match) throws Exception {
+		if (this.matchList == null)
+			throw new Exception("No matchList found");
+
+		// Assign random ID match does not pass any ID
+		if (match == null)
+			throw new Exception("No match to add");
+
+		this.matchList.add(match);
+
+	}
+
 	public void printMatchDetails(FootballMatch match) {
 		if (match != null) {
 			Optional<Team> opHt = Optional.of(match.getHomeTeam());
@@ -82,17 +113,12 @@ public class ScoreBoard implements IScoreBoard<FootballMatch> {
 			strHome.append(opAt.get().getName());
 			strHome.append("(".concat(String.valueOf(opAt.get().getScore()).concat(")")));
 
-			System.out.println(match.getMatchId() + " --> " + strHome.toString().concat(strAway.toString()));
+			System.out.println(match.getMatchId() + " --> " + strHome.toString().concat(strAway.toString()) + " S: "
+					+ sdf.format(match.getGameStartDate()) + " E: "
+					+ (match.getGameEndDate() != null ? sdf.format(match.getGameEndDate()) : "-"));
+
 		}
 
-	}
-
-	@Override
-	public void summarizeMatch() {
-		// TODO Auto-generated method stub
-		this.matchList.stream().forEach(e->{
-			
-		});
 	}
 
 }

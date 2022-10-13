@@ -1,10 +1,14 @@
 package com.self.edu.model;
 
+import java.util.Date;
+
 public abstract class Match {
 
-	protected int matchId;
+	protected Integer matchId;
 	protected Team homeTeam;
 	protected Team awayTeam;
+	protected Date gameStartDate;
+	protected Date gameEndDate;
 	protected boolean isFinished;
 
 	public Match() {
@@ -21,6 +25,7 @@ public abstract class Match {
 		this.matchId = matchId;
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
+		this.gameStartDate = new Date();
 	}
 
 	public Team getHomeTeam() {
@@ -47,11 +52,11 @@ public abstract class Match {
 		this.awayTeam = awayTeam;
 	}
 
-	public int getMatchId() {
+	public Integer getMatchId() {
 		return matchId;
 	}
 
-	public void setMatchId(int matchId) {
+	public void setMatchId(Integer matchId) {
 		this.matchId = matchId;
 	}
 
@@ -66,6 +71,34 @@ public abstract class Match {
 
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
+	}
+
+	/**
+	 * @return the gameStartDate
+	 */
+	public Date getGameStartDate() {
+		return gameStartDate;
+	}
+
+	/**
+	 * @param gameStartDate the gameStartDate to set
+	 */
+	public void setGameStartDate(Date gameStartDate) {
+		this.gameStartDate = gameStartDate;
+	}
+
+	/**
+	 * @return the gameEndDate
+	 */
+	public Date getGameEndDate() {
+		return gameEndDate;
+	}
+
+	/**
+	 * @param gameEndDate the gameEndDate to set
+	 */
+	public void setGameEndDate(Date gameEndDate) {
+		this.gameEndDate = gameEndDate;
 	}
 
 }

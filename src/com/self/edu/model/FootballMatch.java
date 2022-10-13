@@ -9,7 +9,7 @@ public class FootballMatch extends Match {
 	public FootballMatch(int matchId, Team homeTeam, Team awayTeam) {
 		super(matchId, homeTeam, awayTeam);
 	}
-
+	
 	@Override
 	public FootballMatch initTeamScore() {
 		this.homeTeam.setScore(0);

@@ -14,11 +14,6 @@ public class Team {
 		this.name = name;
 	}
 
-	public Team(String name, int score) {
-		this.name = name;
-		this.score = score;
-	}
-
 	public int getScore() {
 		return score;
 	}

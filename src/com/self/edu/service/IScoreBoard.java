@@ -1,13 +1,15 @@
 package com.self.edu.service;
 
+import java.util.List;
+
 import com.self.edu.model.Match;
 
 public interface IScoreBoard<M extends Match> {
 
 	/**
-	 * Initializes the score to 0 for every new match
+	 * Adds new match to the scoreboard.
 	 */
-	void initScore();
+	void addMatch(M match) throws Exception;
 
 	/**
 	 * Updates scores of a match
@@ -17,9 +19,10 @@ public interface IScoreBoard<M extends Match> {
 	/**
 	 * Finish the game and remove the match from the scoreboard
 	 */
-	void finishMatch(M match) throws Exception;
+	List<M> finishMatch(M match) throws Exception;
 
-	void printMatchDetails(M match);
-
+	/**
+	 * Summarize the games based in order based on the most total score
+	 */
 	void summarizeMatch();
 }
